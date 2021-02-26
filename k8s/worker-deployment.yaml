@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: worker
+  #pod template
+  template:
+    metadata:
+      labels:
+        component: worker
+    #configuramos el pod
+    spec:
+      containers:
+        - name: worker
+          image: matelb/multi-worker
+          #no necesita exponer puertos
+          #environmnet variables(array)
+          env:
+            # el host de redis que hemos creado, el value es el nombre, que internamente hace de direccion http
+            - name: REDIS_HOST
+              value: redis-cluster-ip-service
+            - name: REDIS_PORT
+              value: "6379"
