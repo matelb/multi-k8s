@@ -1,9 +1,11 @@
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: custom-ingress-service
   #configuration rules
   annotations:
+    #dice a kubernets que utilize la clase de ingres de nginx
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/use-regex: "true"
     # ADD THIS LINE ABOVE
     nginx.ingress.kubernetes.io/rewrite-target: /$1
