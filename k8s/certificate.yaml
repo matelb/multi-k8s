@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: k8s-multi-com-tls
+spec:
+  secretName: mattebay-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  #el common name del certificado
+  commonName: mattebay.com
+  #list of all diferent domains asociated to the certificate
+  dnsNames:
+    - mattebay.com
+    - www.mattebay.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        #list of all diferent domains asociated to the certificate
+        domains:
+          - mattebay.com
+          - www.mattebay.com
