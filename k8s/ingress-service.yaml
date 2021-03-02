@@ -25,7 +25,7 @@ spec:
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000
-    - host: mattebay.com
+    - host: www.mattebay.com
       http:
         paths:
           - path: /?(.*)
