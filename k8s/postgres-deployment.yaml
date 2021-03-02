@@ -12,9 +12,6 @@ spec:
       labels:
         component: postgres
     spec:
-      #volumes(array)
-      #creamos un volumen, le ponemos un nombre y le decimos al persistentVolumeClaim que tiene que asociarse.
-      #nivel Pod
       volumes:
         - name: postgres-storage
           persistentVolumeClaim:
@@ -24,16 +21,12 @@ spec:
           image: postgres
           ports:
             - containerPort: 5432
-          #volumes
-          #nivel Container, decimos al container a que volume tiene que asociarse(a nivel de pod)
           volumeMounts:
             - name: postgres-storage
-              #data directory that postgres uses to storage the data
               mountPath: /var/lib/postgresql/data
               subPath: postgres
-          #cambiamos la configuracion de postgress, como la contraseña a trave de variables de entorno
           env:
-            - name: POSTGRES_PASSWORD
+            - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: pgpassword

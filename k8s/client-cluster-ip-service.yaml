@@ -4,10 +4,8 @@ metadata:
   name: client-cluster-ip-service
 spec:
   type: ClusterIP
-  #en el selector tenemos que poner el mismo que el metadata del template del deployment file
   selector:
     component: web
   ports:
-    #el port: puerto que expone y targetPort: puerto que va a escuchar dentro del contenedor
     - port: 3000
       targetPort: 3000

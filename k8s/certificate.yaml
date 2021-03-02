@@ -7,9 +7,7 @@ spec:
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  #el common name del certificado
   commonName: mattebay.com
-  #list of all diferent domains asociated to the certificate
   dnsNames:
     - mattebay.com
     - www.mattebay.com
@@ -17,7 +15,6 @@ spec:
     config:
       - http01:
           ingressClass: nginx
-        #list of all diferent domains asociated to the certificate
         domains:
           - mattebay.com
           - www.mattebay.com

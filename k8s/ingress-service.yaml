@@ -1,27 +1,19 @@
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: custom-ingress-service
-  #configuration rules
+  name: ingress-service
   annotations:
-    #dice a kubernets que utilize la clase de ingres de nginx
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    # ADD THIS LINE ABOVE
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-    #certficado, añadimos el issuer creado
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    #forzar a usar https en nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   tls:
     - hosts:
         - mattebay.com
         - www.mattebay.com
-      #secretname del certificado
       secretName: mattebay-com
   rules:
-    #bloque 1
     - host: mattebay.com
       http:
         paths:
@@ -33,7 +25,6 @@ spec:
             backend:
               serviceName: server-cluster-ip-service
               servicePort: 5000
-    #bloque 2
     - host: www.mattebay.com
       http:
         paths:
